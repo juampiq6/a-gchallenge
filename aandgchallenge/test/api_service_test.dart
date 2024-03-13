@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:aandgchallenge/services/api_service.dart';
 import 'package:http/testing.dart';
-import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 
-@GenerateMocks([http.Client])
 void main() {
   group('API service tests', () {
     test('API Service test 200', () async {
