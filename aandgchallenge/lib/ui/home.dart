@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
       body: Center(
         child: SearchInput(
           onSubmitted: (value) {
-            if (value != null) {
+            if (value != null && value.isNotEmpty) {
               navigateToWordScreen(context, value);
             } else {
               showErrorEmptyInput(context);
