@@ -1,5 +1,4 @@
 import 'package:aandgchallenge/ui/auth/login_screen.dart';
-import 'package:aandgchallenge/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
