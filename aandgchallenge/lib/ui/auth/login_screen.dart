@@ -9,10 +9,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool formIsValid = false;
+  final GlobalKey<FormState> _formEmailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formPasswordKey = GlobalKey<FormState>();
+
+  bool formEmailIsValid = false;
+  bool formPasswordIsValid = false;
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -48,20 +49,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Expanded(
-                child: Form(
-                  key: _formKey,
-                  onChanged: () {
-                    if (_formKey.currentState!.validate() != formIsValid) {
-                      formIsValid = !formIsValid;
-                      setState(() {});
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Form(
+                        key: _formEmailKey,
+                        onChanged: () {
+                          if (_formEmailKey.currentState!.validate() !=
+                              formEmailIsValid) {
+                            formEmailIsValid = !formEmailIsValid;
+                            setState(() {});
+                          }
+                        },
                         child: TextFormField(
-                          controller: _emailController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.emailAddress,
                           validator: emailValidator,
@@ -75,13 +76,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Form(
+                        key: _formPasswordKey,
+                        onChanged: () {
+                          if (_formPasswordKey.currentState!.validate() !=
+                              formPasswordIsValid) {
+                            formPasswordIsValid = !formPasswordIsValid;
+                            setState(() {});
+                          }
+                        },
                         child: TextFormField(
-                          controller: _passwordController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: passwordValidator,
                           decoration: InputDecoration(
@@ -94,24 +104,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      OutlinedButton(
-                        onPressed: formIsValid
-                            ? () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Home(),
-                                  ),
-                                );
-                              }
-                            : null,
-                        child: const Text('Login'),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    OutlinedButton(
+                      onPressed: formEmailIsValid && formPasswordIsValid
+                          ? () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Home(),
+                                ),
+                              );
+                            }
+                          : null,
+                      child: const Text('Login'),
+                    ),
+                  ],
                 ),
               ),
             ],
